@@ -1,0 +1,7 @@
+void idleStateLoop(){
+
+}
+
+void idleStateRender(){
+
+}

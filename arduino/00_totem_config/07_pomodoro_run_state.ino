@@ -1,0 +1,7 @@
+void pomodoroRunStateLoop(){
+
+}
+
+void pomodoroRunStateRender(){
+
+}

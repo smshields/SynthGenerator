@@ -1,0 +1,7 @@
+void stretchStateLoop(){
+
+}
+
+void stretchStateRender(){
+
+}
