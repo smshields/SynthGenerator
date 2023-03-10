@@ -1,3 +1,5 @@
+const { SerialPort, ReadlineParser } = require('serialport');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +10,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+express.static.mime.define({'application/javascript': ['js']});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,5 +41,55 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+//
+SerialPort.list().then(
+  ports =>{
+    console.log("List of ports");
+    console.log(ports);
+  },
+  err => {
+    console.log("Error! ");
+    console.log(err);
+  } 
+);
+
+//SerialPort setup
+let port = new SerialPort(
+  {
+    path:'/dev/ttyACM0',
+    baudRate: 9600
+  },
+  function(err){
+    if(err){
+      return console.log('Error: ', err.message);
+    }
+  }
+);
+//SerialPort Parser
+let parser = port.pipe(new ReadlineParser({delimiter: '\r\n'}));
+parser.on('data', console.log);
+
+port.on('data', function (data){
+
+});
+
+// port.write('string', function(err) {
+//   if(err){
+//     return console.log('Error on write: ', err.message);
+//   }
+//   console.log('Message written.');
+// });
+
+// port.on('error', function(err){
+//   //console.log('Error: ', err.message);
+// });
+
+// port.on('readable', function(){
+//   //console.log('Data: ', port.read());
+// });
+
+
 
 module.exports = app;

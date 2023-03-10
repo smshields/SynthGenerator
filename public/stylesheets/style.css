@@ -1,10 +1,6 @@
-html {
-  background-color: rgb(34,34,34);
-}
-
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px !important;
 }
 
 a {

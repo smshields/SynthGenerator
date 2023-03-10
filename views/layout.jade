@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title= title
+    title= Synthgen
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+
+    script(type="module", src="/javascripts/lib/bootstrap.js")
+    script(type="module", src="/javascripts/lib/p5.js")
+    script(type="module", src="/javascripts/lib/Tone.js") 
+    script(type="module", src="/javascripts/Synthgen.js")
   body
     block content
