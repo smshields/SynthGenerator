@@ -59,7 +59,7 @@ SerialPort.list().then(
 let port = new SerialPort(
   {
     path:'/dev/ttyACM0',
-    baudRate: 9600
+    baudRate: 115200
   },
   function(err){
     if(err){

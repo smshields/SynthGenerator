@@ -6,30 +6,7 @@ StaticJsonDocument<200> doc; //calculated with 20 values with length 4, plus 40b
 //write a send string
 //TODO: receive something?
 
-//Encoder
-bool _buttonPressed = false; //bP
-bool _clockwiseEncoderRotation = false; //cER
-bool _counterClockwiseEncoderRotation = false; //cCER
 
-//Mic
-int _analogMicBaseline = 0; //aMB
-int _rawMicValue = 0; //rMV
-
-//Accelerometer
-float _accelOffsetX = 0; //aOX
-float _accelOffsetY = 0; //aOY
-float _accelX = 0; //aX
-float _accelY = 0; //aY
-float _accelZ = 0; //aZ
-float _gyroscopeOffsetX = 0; //gOX
-float _gyroscopeOffsetY = 0; //gOY
-float _gyroscopeOffsetZ = 0; //gOZ
-float _gyroscopeX = 0; //gX
-float _gyroscopeY = 0; //gY
-float _gyroscopeZ = 0; //gZ
-int _roll = 0; //r
-int _pitch = 0; //p
-int _yaw = 0; //y
 
 //TODO: temp? might as well
 //TODO: LED Values? Might be cool effects there
@@ -40,8 +17,9 @@ void updateAndSendSerializedState(){
   doc["bP"] = _buttonPressed;
   doc["cER"] = _clockwiseEncoderRotation;
   doc["cCER"] = _counterClockwiseEncoderRotation;
-  doc["aMB"] = _analogMicBaseline;
-  doc["rMV"] = _rawMicValue;
+  //doc["aMB"] = _analogMicBaseline;
+  //doc["rMV"] = _rawMicValue;
+  doc["mS"] = _micSignal;
   doc["aOX"] = _accelOffsetX;
   doc["aOY"] = _accelOffsetY;
   doc["aX"] = _accelX;

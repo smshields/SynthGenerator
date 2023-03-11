@@ -10,7 +10,7 @@ void initLEDController(){
 
 //index-safe way of lighting up strip
 void updateLEDByIndex(int ledIndex,int r, int g, int b){
-  if(ledIndex >= 0 && ledIndex <15){
+  if(ledIndex >= 0 && ledIndex < 15){
     leds[ledIndex].setRGB(r, g, b);
   }
   else {

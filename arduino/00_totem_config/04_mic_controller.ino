@@ -23,25 +23,30 @@ void fetchSoundInput(){
   //Read raw mic value
   int rawMicValue = analogRead(SOUND_DATA_PIN);
   
-  //determine distance from threshold
+  //how big is the threshold?
   int micValue = abs(rawMicValue - analogBaseline); //absolute distance from baseline
-  if(micValue > 15){
+  if(micValue > 10){
     if(millis() - lastMicEvent > 50){
       Serial.println("Tap sound was detected!");
       //TODO: HANDLE TAP INTERACTIONS
     }
+    
     lastMicEvent = millis();
   }
 
-  //Add mic value to baseline readings
+  //Add mic value to baseline readings, prevent too high of a value from triggering future presses
   baselineReadings[baselineReadingsCounter] = rawMicValue;
+
   updateAnalogBaseline();
 
   //update reading index for rolling average
   baselineReadingsCounter++;
-  if(baselineReadingsCounter >= 10){
+  if(baselineReadingsCounter >= 20){
     baselineReadingsCounter = 0;
   }
+
+  //update state date
+  updateMicStateData(analogBaseline, rawMicValue, micValue);
 }
 
 void updateAnalogBaseline(){
@@ -51,4 +56,11 @@ void updateAnalogBaseline(){
   }
   analogBaseline = baseline / baselineReadingsSize;
 
+}
+
+void updateMicStateData(int temp_analogMicBaseline, int temp_rawMicValue, int temp_micValue){
+  //Mic
+  _analogMicBaseline = temp_analogMicBaseline; //aMB
+  _rawMicValue = temp_rawMicValue; //rMV
+  _micSignal = temp_micValue; //mS
 }

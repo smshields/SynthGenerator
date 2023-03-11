@@ -103,11 +103,55 @@ void fetchMotionInput(){
   // So we can just add up these changes over time to estimate where the z orientation is
   yaw += gyroscopeAngleZ * elapsedTimeSeconds;
 
-  // Send the roll (x), pitch (y), and yaw(z) values over serial 
-  // Serial.print(roll);
-  // Serial.print(",");
-  // Serial.print(pitch);
-  // Serial.print(",");
-  // Serial.println(yaw);
+  //update state data
+  updateMotionStateData(
+    accelerometerOffsetX,
+    accelerometerOffsetY,
+    a.acceleration.x,
+    a.acceleration.y,
+    a.acceleration.z,
+    gyroscopeOffsetX,
+    gyroscopeOffsetY,
+    gyroscopeOffsetZ,
+    g.gyro.x,
+    g.gyro.y,
+    g.gyro.z,
+    roll,
+    pitch,
+    yaw
+  );
 
+}
+
+//function to update motion state data from a reading.
+void updateMotionStateData(
+  float temp_accelOffsetX, //aOX
+  float temp_accelOffsetY, //aOY
+  float temp_accelX, //aX
+  float temp_accelY, //aY
+  float temp_accelZ, //aZ
+  float temp_gyroscopeOffsetX, //gOX
+  float temp_gyroscopeOffsetY, //gOY
+  float temp_gyroscopeOffsetZ, //gOZ
+  float temp_gyroscopeX, //gX
+  float temp_gyroscopeY, //gY
+  float temp_gyroscopeZ, //gZ
+  int temp_roll, //r
+  int temp_pitch, //p
+  int temp_yaw //y
+){
+  _accelOffsetX = (int) (temp_accelOffsetX * 1000);
+  _accelOffsetY =  (int) (temp_accelOffsetY * 1000);
+  _accelX =  (int) (temp_accelX * 1000);
+  _accelY =  (int) (temp_accelY * 1000);
+  _accelZ =  (int) (temp_accelZ * 1000);
+  _gyroscopeOffsetX =  (int) (temp_gyroscopeOffsetX * 1000);
+  _gyroscopeOffsetY =  (int) (temp_gyroscopeOffsetY * 1000);
+  _gyroscopeOffsetZ =  (int) (temp_gyroscopeOffsetZ * 1000);
+  _gyroscopeX =  (int) (temp_gyroscopeX * 1000);
+  _gyroscopeY =  (int) (temp_gyroscopeY * 1000);
+  _gyroscopeZ =  (int) (temp_gyroscopeZ * 1000);
+  _roll =  (int) (temp_roll * 1000);
+  _pitch =  (int) (temp_pitch * 1000);
+  _yaw =  (int) (temp_yaw * 1000);
 }

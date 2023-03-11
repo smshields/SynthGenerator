@@ -32,16 +32,22 @@ void fetchEncoderTurnInput(){ //ROTARY ENCODER DETECTION
         counter --;
       }
 			currentDir ="CCW";
+      _counterClockwiseEncoderRotation = true;
+
 		} else {
 			if(counter < 15){
         counter ++;
       }
 			currentDir ="CW";
+      _clockwiseEncoderRotation = true;
 		}
 
 		Serial.print(" | Counter: ");
 		Serial.println(counter);
-	}
+	} else {
+    _counterClockwiseEncoderRotation = false;
+    _clockwiseEncoderRotation = false;
+  }
 
 	// Remember last CLK state
 	lastStateCLK = currentStateCLK;
@@ -54,6 +60,7 @@ void fetchEncoderButtonInput(){
 
 	//If we detect LOW signal, button is pressed
 	if (btnState == LOW) {
+    _buttonPressed = true;
 		//if 50ms have passed since last LOW pulse, it means that the
 		//button has been pressed, released and pressed again
 		if (millis() - lastButtonPress > 250) {
@@ -93,6 +100,12 @@ void fetchEncoderButtonInput(){
 		  // Remember last button press event
 		  lastButtonPress = millis();
     } 
+  } else {
+    if(_buttonPressed){
+      _buttonPressed = false;
+    }
   }
+
+
 
 }

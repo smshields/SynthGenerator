@@ -1,6 +1,6 @@
 void setup() {
 	// Setup Serial Monitor
-	Serial.begin(9600);
+	Serial.begin(115200);
 
   // Setup Rotary Encoder
   initEncoderController(); 
@@ -35,7 +35,7 @@ void loop() {
   updateAndSendSerializedState();
 
   //delay to decrease load
-  delay(35);
+  delay(50);
 
 }
 
