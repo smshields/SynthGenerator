@@ -1,12 +1,12 @@
 // SpriteManager
 // Container class for images
+import Manager from "./Manager.js";
 
-
-export default class SpriteManager {
+export default class SpriteManager extends Manager {
 
 	constructor() {
 		// TODO: create singleton constructor here
-
+		super();
 		this.__sprites = [];
 
 	}

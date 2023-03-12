@@ -5,6 +5,9 @@ import ParticleManager from "../core/Managers/ParticleManager.js";
 import SpriteManager from "../core/Managers/SpriteManager.js";
 import ParticleSystemDefinitions from "../core/Effects/ParticleEffects/ParticleSystemDefinitions.js";
 
+import SynthManager from "./manager/SynthManager.js";
+import KeyboardController from "./controller/KeyboardController.js";
+
 
 export default class GameSession{
 	
@@ -40,6 +43,12 @@ export default class GameSession{
 
 		//Object stores particle system definitions
 		this.__particleSystemDefinitions = new ParticleSystemDefinitions();
+
+		//Synth Manager
+		this.__synthManager = new SynthManager();
+
+		//Keyboard Controller
+		this.__keyboardController = new KeyboardController();
 
 		//All states available to game
 		this.__states = [];
@@ -191,4 +200,19 @@ export default class GameSession{
 		return this.__particleSystemDefinitions;
 	}
 
+	get synthManager(){
+		return this.__synthManager;
+	}
+
+	set synthManager(synthManager){
+		this.__synthManager = synthManager;
+	}
+
+	get keyboardController(){
+		return this.__keyboardController;
+	}
+
+	set keyboardController(controller){
+		this.__controller = controller;
+	}
 }

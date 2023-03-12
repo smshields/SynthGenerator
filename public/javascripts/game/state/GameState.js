@@ -13,6 +13,15 @@ import State from "../../core/State.js";
 
 export default class GameState extends State {
 
+    // enum Instrument {
+    //     AM_SYNTH,
+    //     FM_SYNTH,
+    //     MEMBRANE_SYNTH,
+    //     NOISE_SYNTH,
+    //     PLUCK_SYNTH,
+    //     MONO_SYNTH
+    // }
+
     constructor(){
         super("Game");
 
@@ -20,6 +29,8 @@ export default class GameState extends State {
 
     setup(){
         super.setup();
+        //roll for our instrument
+        this.gameSession.synthManager.rollForInstrument();
 
     }
 
@@ -38,8 +49,5 @@ export default class GameState extends State {
         super.update();
     }
 
-    get gameBackground(){
-        return this.__gameBackground;
-    }
 
 }

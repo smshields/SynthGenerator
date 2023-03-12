@@ -1,5 +1,5 @@
 import GameSession from "./game/GameSession.js";
-import GameState from "./game/states/GameState.js";
+import GameState from "./game/state/GameState.js";
 
 /**TODOS:
 SETUP should be abstracted to be made easier to use.
@@ -31,9 +31,8 @@ var Synthgen = function (p) {
 		//save canvas reference to gameSession
 		gameSession.canvas = canvas;
 
-		//Instantiate all relevant game states and add them to the session.
+		//Instantiate states (which attaches them to the game session)
 		let gameState = new GameState();
-		gameSession.addStateToGame(gameState);
 
 		//Set initial game state as loading, call setup method
 		gameSession.setCurrentState(gameState);
@@ -46,10 +45,6 @@ var Synthgen = function (p) {
 		//P5 configurations
 		p.frameRate(60);
 		p.imageMode(p.CENTER);
-
-		//Tone.js Test
-		const synth = new Tone.Synth().toDestination();
-		synth.triggerAttackRelease("C4", "8n");
 
 	}
 
@@ -76,11 +71,14 @@ var Synthgen = function (p) {
 		//call gameState code here as needed.
 	}
 
+
     p.keyPressed = function(){
+		gameSession.keyboardController.keyPressed(p.key);
 		//call gameState code here as needed.
 	}
 
     p.keyReleased = function(){
+		gameSession.keyboardController.keyReleased();
 		//call gameState code here as needed.
 	}
 
@@ -134,11 +132,6 @@ var Synthgen = function (p) {
 	p.getAngle = function(x1, y1, x2, y2) {
 		let angle = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
 		return angle;
-	}
-
-	// Manage game input.
-	p.keyPressed = function () {
-		
 	}
 
 	p.windowResized = function () {
