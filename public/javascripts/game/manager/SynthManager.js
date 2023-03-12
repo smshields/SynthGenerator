@@ -22,6 +22,40 @@ export default class SynthManager extends Manager{
         this.__generatedSynthInstrumentName = ""; //name of the object we are using
         this.__currentOctave = 4; //number of current octave - selectable by number
 
+        //channel management - key input
+        this__channels = {};
+
+
+    }
+
+    //instantiate new synths for each key - allowing individual note
+    //triggers and releases
+    populateChannelsWithSynthVoice(SYNTH_NAME, options){
+        console.log("Instantiating synth channels...");
+
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
+        this.channels[''] = ;
     }
 
     rollForInstrument(){
@@ -116,6 +150,14 @@ export default class SynthManager extends Manager{
 
     set currentOctave(octaveNum){
         this.__currentOctave = octaveNum;
+    }
+
+    get channels(){
+        return this.__channels;
+    }
+
+    set channels(channels){
+        this.__channels = channels;
     }
 
 }
