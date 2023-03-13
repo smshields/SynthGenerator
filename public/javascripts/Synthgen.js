@@ -1,6 +1,7 @@
 import GameSession from "./game/GameSession.js";
 import GameState from "./game/state/GameState.js";
 
+
 /**TODOS:
 SETUP should be abstracted to be made easier to use.
 
@@ -78,7 +79,7 @@ var Synthgen = function (p) {
 	}
 
     p.keyReleased = function(){
-		gameSession.keyboardController.keyReleased();
+		gameSession.keyboardController.keyReleased(p.key);
 		//call gameState code here as needed.
 	}
 

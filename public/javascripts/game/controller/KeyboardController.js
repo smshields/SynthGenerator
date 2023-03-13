@@ -1,4 +1,5 @@
 import GameSession from "../GameSession.js";
+import { NOTE_INDEX, NOTE_STRINGS } from "../Constants.js";
 //create a class that handles keystrokes and converts them into
 //played notes from the currently selected synthesizer object
 
@@ -6,58 +7,6 @@ import GameSession from "../GameSession.js";
 //halfstep above/below the other. 
 
 //TODO: Left 9 keys control octave, stock drums...
-const NOTES = {
-    C: 1,
-    Cs: 2,
-    Df: 2,
-    D: 3,
-    Ds: 4,
-    Ef: 4,
-    E: 5,
-    Es: 6,
-    Ff: 5,
-    F: 6,
-    Fs: 7,
-    Gf: 7,
-    G: 8,
-    Gs: 9,
-    Af: 9,
-    A: 10,
-    As: 11,
-    Bf: 11,
-    B: 12,
-    Bs: 1
-}
-
-const NOTE_STRINGS = {
-    Cf: "Cb",
-    C: "C",
-    Cs: "C#",
-
-    Df: "Db",
-    D: "D",
-    Ds: "D#",
-
-    Ef: "Eb",
-    E: "E",
-    Es: "E#",
-
-    Ff: "Fb",
-    F: "F",
-    Fs: "F#",
-
-    Gf: "Gb",
-    G: "G",
-    Gs: "G#",
-
-    Af: "Ab",
-    A: "A",
-    As: "A#",
-
-    Bf: "Bb",
-    B: "B",
-    Bs: "B#"
-}
 
 //TODO: We probably need a standard controller class for this.
 export default class KeyboardController{
@@ -72,71 +21,71 @@ export default class KeyboardController{
         switch(key){
             //sharps
             case 'r': //C#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Cs);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Cs ,NOTE_STRINGS.Cs);
                 break;
             case 't': //D#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Ds);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Ds, NOTE_STRINGS.Ds);
                 break;
             case 'y': //E#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Es);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Es, NOTE_STRINGS.Es);
                 break;
             case 'u': //F#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Fs);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Fs, NOTE_STRINGS.Fs);
                 break;
             case 'i': //G#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Gs);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Gs, NOTE_STRINGS.Gs);
                 break;
             case 'o': //A#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.As);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.As, NOTE_STRINGS.As);
                 break;
             case 'p': //B#
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Bs);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Bs, NOTE_STRINGS.Bs);
                 break;
 
             //naturals    
             case 'f': //C
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.C);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.C, NOTE_STRINGS.C);
                 break;                
             case 'g': //D
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.D);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.D, NOTE_STRINGS.D);
                 break;
             case 'h': //E
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.E);    
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.E, NOTE_STRINGS.E);    
                 break;
             case 'j': //F
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.F);    
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.F, NOTE_STRINGS.F);    
                 break;
             case 'k': //G
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.G);    
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.G, NOTE_STRINGS.G);    
                 break;
             case 'l': //A
-                 this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.A);  
+                 this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.A, NOTE_STRINGS.A);  
                 break;
             case ';': //B
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.B);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.B, NOTE_STRINGS.B);
                 break;
             
             //flats
             case 'v': //Cb
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Cf);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Cf, NOTE_STRINGS.Cf);
                 break;
             case 'b': //Db
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Df);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Df, NOTE_STRINGS.Df);
                 break;  
             case 'n': //Eb
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Ef);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Ef, NOTE_STRINGS.Ef);
                 break;
             case 'm': //Fb
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Ff);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Ff, NOTE_STRINGS.Ff);
                 break;
             case ',': //Gb
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Gf);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Gf, NOTE_STRINGS.Gf);
                 break;
             case '.': //Ab
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Af);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Af, NOTE_STRINGS.Af);
                 break;
             case '/': //Bb
-                this.gameSession.synthManager.triggerSynthAttack(NOTE_STRINGS.Bf);
+                this.gameSession.synthManager.triggerSynthAttack(NOTE_INDEX.Bf, NOTE_STRINGS.Bf);
                 break;
 
             case '1':
@@ -173,7 +122,79 @@ export default class KeyboardController{
     }
 
     keyReleased(key){
-        this.gameSession.synthManager.triggerSynthRelease();
+        switch(key){
+            //sharps
+            case 'r': //C#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Cs);
+                break;
+            case 't': //D#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Ds);
+                break;
+            case 'y': //E#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Es);
+                break;
+            case 'u': //F#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Fs);
+                break;
+            case 'i': //G#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Gs);
+                break;
+            case 'o': //A#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.As);
+                break;
+            case 'p': //B#
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Bs);
+                break;
+
+            //naturals    
+            case 'f': //C
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.C);
+                break;                
+            case 'g': //D
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.D);
+                break;
+            case 'h': //E
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.E);    
+                break;
+            case 'j': //F
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.F);    
+                break;
+            case 'k': //G
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.G);    
+                break;
+            case 'l': //A
+                 this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.A);  
+                break;
+            case ';': //B
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.B);
+                break;
+            
+            //flats
+            case 'v': //Cb
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Cf);
+                break;
+            case 'b': //Db
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Df);
+                break;  
+            case 'n': //Eb
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Ef);
+                break;
+            case 'm': //Fb
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Ff);
+                break;
+            case ',': //Gb
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Gf);
+                break;
+            case '.': //Ab
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Af);
+                break;
+            case '/': //Bb
+                this.gameSession.synthManager.triggerSynthRelease(NOTE_INDEX.Bf);
+                break;
+
+            default:
+                console.log("Key released outside of controller: " + key);
+        }
     }
 
     get gameSession(){

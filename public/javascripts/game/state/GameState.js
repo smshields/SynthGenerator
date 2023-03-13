@@ -29,8 +29,6 @@ export default class GameState extends State {
 
     setup(){
         super.setup();
-        //roll for our instrument
-        this.gameSession.synthManager.rollForInstrument();
 
     }
 

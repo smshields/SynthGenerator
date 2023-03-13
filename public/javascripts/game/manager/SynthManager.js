@@ -1,17 +1,12 @@
 //Prototype manager that handles
 //synth generation and assignment to different key slots
 import Manager from "../../core/Managers/Manager.js";
+import AMSynthGenerator from "../generators/AMSynthGenerator.js";
+import { SYNTH } from "../Constants.js";
 
 //responsible for playing notes from a given synth. 
 //controller outputs octave and note intended to be played along with signals.
-const SYNTH = {
-    AM: "AM_SYNTH",
-    FM: "FM_SYNTH",
-    MEMBRANE: "MEMBRANE_SYNTH",
-    NOISE: "NOISE_SYNTH",
-    PLUCK: "PLUCK_SYNTH",
-    MONO: "MONO_SYNTH" 
-}
+
 
 export default class SynthManager extends Manager{
 
@@ -22,40 +17,70 @@ export default class SynthManager extends Manager{
         this.__generatedSynthInstrumentName = ""; //name of the object we are using
         this.__currentOctave = 4; //number of current octave - selectable by number
 
-        //channel management - key input
-        this__channels = {};
+        //establish each key as it's own synth instance to allow multiple voices.
+        //indexed in three rows, r-p, r-v in a rectangle on a qwerty keybaord.
+        this.__synthVoiceChannels = Array.from({ length: 21 });
+
+        //Synthesizer generators
+        this.__amSynthGenerator = new AMSynthGenerator();
+
+        //choose an instrument
+        this.rollForInstrument();
+        //copy instrument to channels
+        this.populateChannelsWithSynthVoice();
 
 
     }
 
     //instantiate new synths for each key - allowing individual note
     //triggers and releases
-    populateChannelsWithSynthVoice(SYNTH_NAME, options){
+    populateChannelsWithSynthVoice(){
+        if(this.generatedSynth == {} || this.generatedSynthInstrumentName == "" ){
+            console.log("Attempted to load channels with synthesizer before generating.");
+        }
+        
         console.log("Instantiating synth channels...");
 
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
+        for(let i = 0; i < this.synthVoiceChannels.length; i++){
 
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
+            switch(/**this.generatedSynthInstrumentName*/SYNTH.AM){
+                case(SYNTH.AM):
+                    console.log("Generating AM Synth.");
+                    this.synthVoiceChannels[i] = this.amSynthGenerator.generateRandomAMSynth().toDestination();
+                    break;
+                case(SYNTH.FM):
+                    console.log("Generating FM Synth.");
+                    this.synthVoiceChannels[i] = new Tone.FMSynth().toDestination(); 
+                    break;
+                case(SYNTH.MEMBRANE):
+                    console.log("Generating Membrane Synth");
+                    this.synthVoiceChannels[i] = new Tone.MembraneSynth().toDestination();
+                    break;
+                case(SYNTH.NOISE):
+                    console.log("Generating Noise Synth");
+                    this.synthVoiceChannels[i] = new Tone.NoiseSynth().toDestination();
+                    break;
+                case(SYNTH.PLUCK):
+                    console.log("Generating Pluck Synth");
+                    this.synthVoiceChannels[i] = new Tone.PluckSynth().toDestination();
+                    break;
+                case(SYNTH.MONO):
+                    console.log("Generating Mono Synth");
+                    this.synthVoiceChannels[i] = new Tone.MonoSynth({
+                        oscillator: {
+                            type: "square"
+                        },
+                        envelope: {
+                            attack: 0.1
+                        }
+                    }).toDestination();
+                    break;
+                default:
+                    console.log("Attempted to generate channels without instrument chosen.");
+                    break;
+            }
+        }
 
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
-        this.channels[''] = ;
     }
 
     rollForInstrument(){
@@ -67,39 +92,26 @@ export default class SynthManager extends Manager{
         switch(instrumentRoll){
             //AM_SYNTH
             case(1):
-                this.generatedSynth = new Tone.AMSynth().toDestination();
                 this.generatedSynthInstrumentName = SYNTH.AM;
                 break;
             //FM_SYNTH
             case(2):
-                this.generatedSynth = new Tone.FMSynth().toDestination();
                 this.generatedSynthInstrumentName = SYNTH.FM;
                 break;
             //MEMBRANE
             case(3):
-                this.generatedSynth = new Tone.MembraneSynth().toDestination();
                 this.generatedSynthInstrumentName = SYNTH.MEMBRANE;
                 break;
             //NOISE
             case(4):
-                this.generatedSynth = new Tone.NoiseSynth().toDestination();
                 this.generatedSynthInstrumentName = SYNTH.NOISE;
                 break;
             //PLUCK
             case(5):
-                this.generatedSynth = new Tone.PluckSynth().toDestination();
                 this.generatedSynthInstrumentName = SYNTH.PLUCK;
                 break;
             //MONO
             case(6):
-                this.generatedSynth = new Tone.MonoSynth({
-                    oscillator: {
-                        type: "square"
-                    },
-                    envelope: {
-                        attack: 0.1
-                    }
-                }).toDestination();
                 this.generatedSynthInstrumentName = SYNTH.MONO;
                 break;
             default:
@@ -113,19 +125,35 @@ export default class SynthManager extends Manager{
         return Math.floor(Math.random() * diceSize) + 1;
     }
 
-    //triggers the attack of the current synth
-    triggerSynthAttack(note){
+    /**
+     * 
+     * @param {int} noteIndex - 0-20; tells us which channel to use
+     * @param {String} note - tone-friendly string of the note to play 
+     */
+    triggerSynthAttack(noteIndex, note){
         let noteString = note + this.currentOctave;
         if(this.generatedSynthInstrumentName == SYNTH.NOISE){
-            this.generatedSynth.triggerAttack();
+            this.synthVoiceChannels[noteIndex].triggerAttack();
         } else {
-            this.generatedSynth.triggerAttack(noteString);
+            console.log(noteString);
+            this.synthVoiceChannels[noteIndex].triggerAttack(noteString);
         }
     }
 
-    //triggers the release of the current synth
-    triggerSynthRelease(){
-        this.generatedSynth.triggerRelease();
+    /**
+     * 
+     * @param {int} noteIndex - 0-20; tells us which channel to use
+     */
+    triggerSynthRelease(noteIndex){
+        this.synthVoiceChannels[noteIndex].triggerRelease();
+    }
+
+    get amSynthGenerator(){
+        return this.__amSynthGenerator;
+    }
+
+    set amSynthGenerator(generator){
+        this.__amSynthGenerator = generator;
     }
 
     get generatedSynth(){
@@ -152,12 +180,12 @@ export default class SynthManager extends Manager{
         this.__currentOctave = octaveNum;
     }
 
-    get channels(){
-        return this.__channels;
+    get synthVoiceChannels(){
+        return this.__synthVoiceChannels;
     }
 
-    set channels(channels){
-        this.__channels = channels;
+    set synthVoiceChannels(channels){
+        this.__synthVoiceChannels = channels;
     }
 
 }
