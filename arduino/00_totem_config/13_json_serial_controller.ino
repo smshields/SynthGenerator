@@ -10,6 +10,15 @@ StaticJsonDocument<200> doc; //calculated with 20 values with length 4, plus 40b
 
 //TODO: temp? might as well
 //TODO: LED Values? Might be cool effects there
+void updateAndSendTunerSerializedState(){
+  doc["r"] = _roll;
+  doc["p"] = _pitch;
+  doc["y"] = _yaw;
+  doc["c"] = _counter;
+
+  serializeJson(doc, Serial);
+  Serial.print("\n");
+}
 
 //Takes information we are interested in sending over serial and updates it based off totem's current state.
 void updateAndSendSerializedState(){

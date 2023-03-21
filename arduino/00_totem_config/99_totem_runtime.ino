@@ -5,7 +5,7 @@ void setup() {
   // Setup Rotary Encoder
   initEncoderController(); 
   // Setup Electret Microphone
-  initSoundController();
+  // initSoundController();
   // Setup Accellerometer
   initMotionController();
   // LED Setup
@@ -20,10 +20,7 @@ void setup() {
 
 void loop() {
   
-  //Fetch all required input information
-  fetchEncoderTurnInput(); //encoder turn
-  fetchEncoderButtonInput(); //button press
-  fetchSoundInput(); //sharp sound
+  //fetchSoundInput(); //sharp sound
   fetchMotionInput(); //motion input
 
   //TODO: MODEL/STATE MGMT
@@ -32,7 +29,7 @@ void loop() {
   stateLoop();
 
   //update serialized state and send
-  updateAndSendSerializedState();
+  updateAndSendTunerSerializedState();
 
   //delay to decrease load
   delay(50);

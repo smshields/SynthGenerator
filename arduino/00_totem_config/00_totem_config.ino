@@ -8,14 +8,14 @@
 #include <ArduinoJson.h>
 
 //Rotary Encoder Inputs
-#define ENCODER_CLOCK_PIN 49
-#define ENCODER_BUTTON_PIN 46
-#define ENCODER_DATA_PIN 48
+#define ENCODER_CLOCK_PIN 3
+#define ENCODER_BUTTON_PIN 18
+#define ENCODER_DATA_PIN 2
 
 //LED Strip Definition
 #define NUM_LEDS 15
-#define LED_DATA_PIN 52
-#define LED_CLOCK_PIN 53
+#define LED_DATA_PIN 22
+#define LED_CLOCK_PIN 23
 
 //Sound Sensor Definition - Analog
 #define SOUND_DATA_PIN A14
@@ -31,6 +31,8 @@ enum timerStates state;
 bool _buttonPressed = false; //bP
 bool _clockwiseEncoderRotation = false; //cER
 bool _counterClockwiseEncoderRotation = false; //cCER
+
+int _counter = 0; //c
 
 //Mic
 int _analogMicBaseline = 0; //aMB

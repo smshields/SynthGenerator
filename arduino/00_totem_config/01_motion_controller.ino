@@ -104,23 +104,22 @@ void fetchMotionInput(){
   yaw += gyroscopeAngleZ * elapsedTimeSeconds;
 
   //update state data
-  updateMotionStateData(
-    accelerometerOffsetX,
-    accelerometerOffsetY,
-    a.acceleration.x,
-    a.acceleration.y,
-    a.acceleration.z,
-    gyroscopeOffsetX,
-    gyroscopeOffsetY,
-    gyroscopeOffsetZ,
-    g.gyro.x,
-    g.gyro.y,
-    g.gyro.z,
-    roll,
-    pitch,
-    yaw
-  );
+  updateRotationStateData(roll, pitch, yaw);
 
+}
+
+float radToDegrees(float rad){
+  return rad * 57.296;
+}
+
+void updateRotationStateData(  
+  float temp_roll, //r
+  float temp_pitch, //p
+  float temp_yaw //y
+){
+  _roll = (int) (radToDegrees(temp_roll));
+  _pitch = (int) (radToDegrees(temp_pitch));
+  _yaw = (int) (radToDegrees(temp_yaw));
 }
 
 //function to update motion state data from a reading.

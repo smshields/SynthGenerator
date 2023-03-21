@@ -12,13 +12,18 @@ void initEncoderController(){
   pinMode(ENCODER_BUTTON_PIN, INPUT_PULLUP);
 
   // Read the initial state of CLK
-	lastStateCLK = digitalRead(ENCODER_CLOCK_PIN);
+	lastStateCLK = digitalRead(ENCODER_CLOCK_PIN);  
+
+  // Set encoder reads as interrupts instead of polling
+  attachInterrupt(digitalPinToInterrupt(ENCODER_CLOCK_PIN), updateEncoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_DATA_PIN), updateEncoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_BUTTON_PIN), updateEncoderButton, CHANGE);
 
   Serial.println("Rotary Encoder and Button initialized.");
 }
 
-void fetchEncoderTurnInput(){ //ROTARY ENCODER DETECTION
-	// Read the current state of CLK
+void updateEncoder(){ //ROTARY ENCODER DETECTION
+  // Read the current state of CLK
 	currentStateCLK = digitalRead(ENCODER_CLOCK_PIN);
 
 	// If last and current state of CLK are different, then pulse occurred
@@ -42,18 +47,21 @@ void fetchEncoderTurnInput(){ //ROTARY ENCODER DETECTION
       _clockwiseEncoderRotation = true;
 		}
 
+    Serial.print(currentDir);
 		Serial.print(" | Counter: ");
 		Serial.println(counter);
 	} else {
     _counterClockwiseEncoderRotation = false;
     _clockwiseEncoderRotation = false;
   }
+  //update state counter
+  _counter = counter;
 
 	// Remember last CLK state
 	lastStateCLK = currentStateCLK;
 }
 
-void fetchEncoderButtonInput(){
+void updateEncoderButton(){
    //BUTTON DETECTION
 	// Read the button state
 	int btnState = digitalRead(ENCODER_BUTTON_PIN);
@@ -69,6 +77,7 @@ void fetchEncoderButtonInput(){
       switch(state){
         case IDLE:
           FastLED.clear();
+          Serial.println("Moving to Pomodoro set phase");
           state = POMODORO_SET;
           break;
         case POMODORO_SET:
