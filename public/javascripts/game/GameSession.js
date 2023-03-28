@@ -56,7 +56,33 @@ export default class GameSession{
 		//Current state
 		this.__currentState = {};
 
+		this.__socket = io();
+
+		this.__roll = 0;
+		this.__pitch = 0;
+		this.__yaw = 0;
+		this.__counter = 0;
+
+		this.__socket.gameSession = this;
+		this.__socket.on('data', this.mapDataToSession);
+
+		setInterval(this.pollServerForData, 100, this.__socket);
 		console.log("Session Created Successfully.");
+	}
+
+	mapDataToSession(data){
+		console.log(data);
+		if(data){
+			this.gameSession.roll = data.roll;
+			this.gameSession.pitch = data.pitch;
+			this.gameSession.yaw = data.yaw;
+			this.gameSession.synthManager.currentOctave = data.counter;
+		}
+
+	}
+
+	pollServerForData(socket){
+		socket.emit('requestData', '');
 	}
 
 	//used to add states to game on game load or dynamically
@@ -215,4 +241,24 @@ export default class GameSession{
 	set keyboardController(controller){
 		this.__controller = controller;
 	}
+
+	get socket(){
+		return this.__socket;
+	}
+
+	set socket(socket){
+		this.__socket = socket;
+	}
+
+	get roll(){ return this.__roll}
+	set roll(roll){this.__roll = roll}
+
+	get pitch(){ return this.__pitch}
+	set pitch(pitch){this.__pitch = pitch}
+
+	get yaw(){ return this.__yaw}
+	set yaw(yaw){ this.__yaw = yaw}
+
+	get counter(){ return this.__counter}
+	set counter(counter){this.__counter = counter}
 }

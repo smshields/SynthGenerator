@@ -19,7 +19,7 @@ void initEncoderController(){
   attachInterrupt(digitalPinToInterrupt(ENCODER_DATA_PIN), updateEncoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENCODER_BUTTON_PIN), updateEncoderButton, CHANGE);
 
-  Serial.println("Rotary Encoder and Button initialized.");
+  //Serial.println("Rotary Encoder and Button initialized.");
 }
 
 void updateEncoder(){ //ROTARY ENCODER DETECTION
@@ -47,9 +47,7 @@ void updateEncoder(){ //ROTARY ENCODER DETECTION
       _clockwiseEncoderRotation = true;
 		}
 
-    Serial.print(currentDir);
-		Serial.print(" | Counter: ");
-		Serial.println(counter);
+
 	} else {
     _counterClockwiseEncoderRotation = false;
     _clockwiseEncoderRotation = false;
@@ -72,12 +70,12 @@ void updateEncoderButton(){
 		//if 50ms have passed since last LOW pulse, it means that the
 		//button has been pressed, released and pressed again
 		if (millis() - lastButtonPress > 250) {
-      Serial.println("Button pressed!");
+      //Serial.println("Button pressed!");
       //if we are in the READY state, move state to SET
       switch(state){
         case IDLE:
           FastLED.clear();
-          Serial.println("Moving to Pomodoro set phase");
+          //Serial.println("Moving to Pomodoro set phase");
           state = POMODORO_SET;
           break;
         case POMODORO_SET:

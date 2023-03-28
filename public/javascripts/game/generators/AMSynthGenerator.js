@@ -29,6 +29,7 @@ release : 0.5
 
 */
 import { OSCILLATOR_WAVE_TYPE } from "../Constants.js";
+import GameSession from "../GameSession.js";
 
 export default class AMSynthGenerator{
 
@@ -49,7 +50,45 @@ export default class AMSynthGenerator{
         this.__modulationDecay = 0; //0-1
         this.__modulationSustain = 0; //0-1
         this.__modulationRelease = 0; //0-1
+
+        this.__gameSession = new GameSession();
         
+    }
+
+    scale = (number, [inMin, inMax], [outMin, outMax]) => {
+        if(!number){
+            return 1
+        }
+        // if you need an integer value use Math.floor or Math.ceil here
+        return (number - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
+    }
+
+    generateAMSynthFromSession(){
+        let tempSynth = new Tone.AMSynth(); 
+        console.log("roll: " + this.scale(this.gameSession.roll, [-180, 180], [0, 1]));
+        console.log("pitch: " + this.scale(this.gameSession.pitch, [-180, 180], [0, 1]));
+        console.log("yaw: " + this.scale(this.gameSession.yaw, [-180, 180], [0,1]));
+
+        tempSynth.set({
+            harmonicity: this.scale(this.gameSession.pitch, [-180, 180], [1,5]),
+            //detune: this.generateDetune(),
+            oscillator: {
+                type: "sine"
+            },
+            envelope: {
+                attack: this.scale(this.gameSession.roll, [-180, 180], [0, 1]),
+                decay: .1,
+                sustain: 1,
+                release: this.scale(this.gameSession.yaw, [-180, 180], [0, 1])
+            },
+
+
+        });
+        
+
+        console.log("reached. ");
+
+        return tempSynth;
     }
 
     generateRandomAMSynth(){
@@ -286,6 +325,7 @@ export default class AMSynthGenerator{
         this.__modulationRelease = time;
     }
 
-
+    get gameSession(){return this.__gameSession}
+    set gameSession(gameSession){this.__gameSession = gameSession}
     
 }

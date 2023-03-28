@@ -10,12 +10,14 @@ SETUP should be abstracted to be made easier to use.
 //Instantiate our Game Session - this will be our parent for all game data.
 let gameSession = new GameSession();
 
+
 //Define how our P5 sketch will look. Treat this as the "Main".
 var Synthgen = function (p) {
 
 	//Executed before beginning setup
 	p.preload = function() {
 		//Load any assets or libraries
+
 	}
 
 	//Executed before draw

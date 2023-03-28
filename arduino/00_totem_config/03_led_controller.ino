@@ -10,7 +10,7 @@ unsigned long tempoTime = 0;
 
 void initLEDController(){
   FastLED.addLeds<APA102, LED_DATA_PIN, LED_CLOCK_PIN>(leds, NUM_LEDS);
-  Serial.println("LEDs initialized.");
+  //Serial.println("LEDs initialized.");
 
 }
 
@@ -44,7 +44,7 @@ void updateLEDRGBByIndex(int ledIndex,int r, int g, int b){
     leds[ledIndex].setRGB(r, g, b);
   }
   else {
-    Serial.println("Attempted to light LED out of range: " + ledIndex);
+    //Serial.println("Attempted to light LED out of range: " + ledIndex);
   }
 }
 
@@ -54,7 +54,7 @@ void updateLEDHSVByIndex(int ledIndex,int h, int s, int v){
     leds[ledIndex].setHSV(h, s, v);
   }
   else {
-    Serial.println("Attempted to light LED out of range: " + ledIndex);
+    //Serial.println("Attempted to light LED out of range: " + ledIndex);
   }
 }
 

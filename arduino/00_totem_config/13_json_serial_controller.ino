@@ -16,8 +16,9 @@ void updateAndSendTunerSerializedState(){
   doc["y"] = _yaw;
   doc["c"] = _counter;
 
+
   serializeJson(doc, Serial);
-  Serial.print("\n");
+  Serial.println();
 }
 
 //Takes information we are interested in sending over serial and updates it based off totem's current state.
@@ -45,7 +46,8 @@ void updateAndSendSerializedState(){
   doc["y"] = _yaw;
   doc["s"] = state;
 
+
   serializeJson(doc, Serial);
-  Serial.print("\n");
+
 
 }

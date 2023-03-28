@@ -46,7 +46,7 @@ export default class SynthManager extends Manager{
             switch(/**this.generatedSynthInstrumentName*/SYNTH.AM){
                 case(SYNTH.AM):
                     console.log("Generating AM Synth.");
-                    this.synthVoiceChannels[i] = this.amSynthGenerator.generateRandomAMSynth().toDestination();
+                    this.synthVoiceChannels[i] = this.amSynthGenerator.generateAMSynthFromSession().toDestination();
                     break;
                 case(SYNTH.FM):
                     console.log("Generating FM Synth.");

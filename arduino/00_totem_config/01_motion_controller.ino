@@ -48,10 +48,10 @@ void calculateIMUOffset(){
 void initMotionController(){
 
   while(!mpu.begin()){
-    Serial.println("Looking for MPU6050 chip...");
+    //Serial.println("Looking for MPU6050 chip...");
     delay(1000);
   }
-  Serial.println("MPU successfully found and initialized!");
+  //Serial.println("MPU successfully found and initialized!");
 
   //Set the accelerometer range - options are 2, 4, 8, 16. Smaller = more sensitive
   mpu.setAccelerometerRange(MPU6050_RANGE_4_G);

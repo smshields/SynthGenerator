@@ -116,6 +116,9 @@ export default class KeyboardController{
                 this.gameSession.synthManager.currentOctave=9;
                 break;
 
+            case ' ':
+                this.gameSession.synthManager.populateChannelsWithSynthVoice();
+
             default:
                 console.log("Key pressed outside of controller: " + key);
         }
